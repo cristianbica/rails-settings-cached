@@ -42,7 +42,7 @@ module RailsSettings
     end
 
     #retrieve all settings as a hash (optionally starting with a given namespace)
-    def self.all(starting_with = nil)
+    def self.all_settings(starting_with = nil)
       vars = thing_scoped.select("var,value")
       if starting_with
         vars = vars.where("var LIKE '#{starting_with}%'")
@@ -54,14 +54,14 @@ module RailsSettings
       end
       result.with_indifferent_access
     end
-    
+
     def self.where(sql = nil)
       if sql
         vars = thing_scoped.where(sql)
       end
       vars
     end
-    
+
     #get a setting value by [] notation
     def self.[](var_name)
       if var = object(var_name)
